@@ -6,5 +6,9 @@ const Restaraunt = sequelize.define('Restaraunt',{
         type:DataTypes.TEXT,
         allowNull:false
     },
+    adress:{
+        type:DataTypes.TEXT,
+        allowNull:false
+    },
     
 })
