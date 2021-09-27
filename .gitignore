@@ -22,7 +22,8 @@ dist/
 # Maven
 target/
 dist/
-
+.env
+logfile
 # JetBrains IDE
 .idea/
 

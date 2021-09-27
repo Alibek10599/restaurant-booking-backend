@@ -1,5 +1,7 @@
 const express = require("express");
 const path = require("path");
+const cors = require('cors');
+
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
@@ -9,6 +11,7 @@ var restarauntRouter = require('./routes/restaraunt');
 var app = express();
 
 app.use(logger("dev"));
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -18,14 +21,14 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use('/restaraunts', restarauntRouter);
 //db connection
-var mysql = require('mysql');
+var mysql = require('pg');
 
-// var con = mysql.createConnection({
-//   database: 'employeedb',
-//   host: "localhost",
-//   user: "root",
-//   password: "12345"
-// });
+var con = mysql.createConnection({
+  database: 'restaurant',
+  host: "loc",
+  user: "root",
+  password: ''
+});
 
 // con.connect(function(err) {
 //   if (err) throw err;
