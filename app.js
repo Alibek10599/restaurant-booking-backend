@@ -21,12 +21,12 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use('/restaraunts', restarauntRouter);
 //db connection
-var mysql = require('pg');
+var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  database: 'restaurant',
-  host: "loc",
-  user: "root",
+  database: 'restaraunt',
+  host: "table+",
+  user: "",
   password: ''
 });
 

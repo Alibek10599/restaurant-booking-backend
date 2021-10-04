@@ -10,6 +10,9 @@ const User = sequelize.define('User', {
   lastName: {
     type: DataTypes.STRING
     // allowNull defaults to true
+  },
+  phone_number:{
+    type: DataTypes.STRING
   }
 }, {
   // Other model options go here
