@@ -10,15 +10,7 @@ pipelines:
       - step:
           name: 'Build and Test'
           script:
-            - echo "Your build and test goes here..."
-      - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
-      - step:
-          name: 'Security scan'
-          script:
-            - echo "Your security scan goes here..."
+            - git push https://heroku:bf2aa4f8-8a0c-4b3f-9b17-a659bff9d781@git.heroku.com/online-restaurant-booking.git HEAD
 
     # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
     - step:
