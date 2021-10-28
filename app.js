@@ -22,17 +22,24 @@ app.use("/users", usersRouter);
 app.use('/restaraunts', restarauntRouter);
 //db connection
 var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  database: 'restaraunt',
-  host: "table+",
-  user: "",
-  password: ''
+var pool = mysql.createPool({
+  host: "loc",
+  user: "root",
+  password: 'Alrekkr10599'
 });
+var connection = mysql.createConnection({
+  pass: 'Alrekkr10599',
+  user: 'root', 
+  host: '127.0.0.1',
+  port: '3306'
+});
+// connection.connect(function(err) {
+//   if (err) {
+//     console.error('error connecting: ' + err.stack);
+//     return;
+//   }
 
-// con.connect(function(err) {
-//   if (err) throw err;
-//   console.log("Connected!");
+//   console.log('connected as id ' + connection.threadId);
 // });
 
 app.listen(3000, () => {
