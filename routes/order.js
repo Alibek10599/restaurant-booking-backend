@@ -25,12 +25,10 @@ function setValue(value) {
 router.get('/', function(req, res, next) {
     connection.query('SELECT * FROM restaraunt.orders', (err, result, fields)=>{
         if (err) throw err;
-        console.log(result);
-        
+        res.send(result)
     })
-  
 });
 
-router.get
+// router.get
 
 module.exports = router;
