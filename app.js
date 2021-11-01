@@ -39,10 +39,10 @@ app.use('/orders', orderRouter)
 //     return 1;
 //   }
 
-//   console.log('connected as id ' + connection.threadId);
-// });
 
-app.listen(3000, () => {
-  console.log("started development server on port 3000");
+
+app.get("*", (req, res) => {
+   res.sendStatus(404);
 });
+
 module.exports = app;
