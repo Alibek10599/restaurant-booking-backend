@@ -12,11 +12,11 @@ const msg = {
         name:'Navat'
 }]
 }
-router.get('/', (req,res)=>{
+router.get('/restaraunts', (req,res)=>{
     
     res.send(msg);
 })
-router.get('/:id', (req, res)=>{
+router.get('/restaraunts/:id', (req, res)=>{
     res.send(msg.restaraunt[req.params.id-1])
 })
 
