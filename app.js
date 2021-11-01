@@ -1,32 +1,14 @@
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-const bodyParser = require("body-parser");
-const cors = require("cors");
+const express = require("express");
+const path = require("path");
+const cors = require('cors');
 
-const PORT = 8888;
-const users = [
-   {id: 1, username: "clarkKent", password: "superman"},
-   {id: 2, username: "bruceWayne", password: "batman"}
-];
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var cookieParser = require("cookie-parser");
+var logger = require("morgan");
 
 var app = express();
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(bodyParser.json());
+app.use(logger("dev"));
 app.use(cors());
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 var mysql = require('mysql');
 
