@@ -28,6 +28,21 @@ router.get('/', function(req, res, next) {
     })
 });
 
-// router.get
+router.get('/:id', (req, res)=>{
+    connection.query('SELECT * FROM restaraunt.orders WHERE order_id = ?', [req.params.id], (err, result, fields)=>{
+        if (err) throw err;
+        res.send(result)
+      })
+    })
+
+router.post('/', (req, res)=>{
+  
+
+    connection.query('INSERT INTO restaraunt.orders SET ?', req.body, (err, result, fields)=>{
+        if (err) throw err;
+        res.send(result)
+      })
+    }
+)
 
 module.exports = router;
