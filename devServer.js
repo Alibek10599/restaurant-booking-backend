@@ -1,5 +1,5 @@
 const app = require("./app");
-const port = process.env.PORT || 3000;
+const port = 4000 //process.env.PORT || 3000;
 
 const routes = require("./routes/router");
 app.use("/", routes);
