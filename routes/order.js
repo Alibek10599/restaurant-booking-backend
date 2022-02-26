@@ -3,10 +3,10 @@ var router = express.Router();
 // const Order = require('../models').Order;
 var mysql = require('mysql');
 var connection = mysql.createConnection({
-  password: 'password',
-  user: 'root', 
-  host: 'localhost',
-  database: 'restaraunt'
+  host: "bbo-db.cugn8zapjwmd.eu-west-1.rds.amazonaws.com",
+  user: "admin",
+  password: "12345678",
+  port: 5000
 });
 connection.connect(function(err) {
     if (err) {
@@ -22,7 +22,7 @@ function setValue(value) {
   }
 /* GET orders listing. */
 router.get('/', function(req, res, next) {
-    connection.query('SELECT * FROM restaraunt.orders', (err, result, fields)=>{
+    connection.query('SELECT * FROM bbo-db', (err, result, fields)=>{
         if (err) throw err;
         res.send(result)
     })
