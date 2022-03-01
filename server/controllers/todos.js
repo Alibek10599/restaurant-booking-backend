@@ -1,5 +1,5 @@
 const Todo = require('../models').Todo;
-const models = require('../models');
+const models = require('../models/index.js');
 const Op = models.Sequelize.Op;
 
 module.exports = {
