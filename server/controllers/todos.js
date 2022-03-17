@@ -1,5 +1,7 @@
-const Todo = require('../models').Todo;
+
 const models = require('../models/index.js');
+const {Sequelize, DataTypes} = require("sequelize");
+const Todo = require('../models/todo.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 module.exports = {
