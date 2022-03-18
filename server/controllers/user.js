@@ -22,6 +22,11 @@ module.exports = {
         res.status(200).send();
     },
 
+    list(req, res) {
+        return User.findAll()
+            .then(users => res.status(200).send(users));
+    },
+
     search(req, res) {
         return User.findAll({
             where: {
