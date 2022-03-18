@@ -2,7 +2,7 @@ const express = require('express');
 const Todo = require('../server/models').Todo;
 const router = express.Router();
 const msg = {
-    'restaraunt':[{
+    'Restaurant':[{
         id: '1',
         name:'Tagam+'
     },
@@ -13,12 +13,12 @@ const msg = {
         name:'Navat'
 }]
 }
-router.get('/restaraunts', (req,res)=>{
+router.get('/Restaurants', (req,res)=>{
     
     res.send(msg);
 })
-router.get('/restaraunts/:id', (req, res)=>{
-    res.send(msg.restaraunt[req.params.id-1])
+router.get('/Restaurants/:id', (req, res)=>{
+    res.send(msg.Restaurant[req.params.id-1])
 })
 
 router.post('/', (res,req)=>{
@@ -26,8 +26,8 @@ router.post('/', (res,req)=>{
         id: req.body.id,
         name: req.body.name
     }
-    msg.restaraunt.push(obj)
-    console.log(msg.restaraunt)
+    msg.Restaurant.push(obj)
+    console.log(msg.Restaurant)
     res.send('posted successfully')
 })
 

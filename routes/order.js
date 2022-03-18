@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:id', (req, res)=>{
-    connection.query('SELECT * FROM restaraunt.orders WHERE order_id = ?', [req.params.id], (err, result, fields)=>{
+    connection.query('SELECT * FROM Restaurant.orders WHERE order_id = ?', [req.params.id], (err, result, fields)=>{
         if (err) throw err;
         res.send(result)
       })
@@ -38,7 +38,7 @@ router.get('/:id', (req, res)=>{
 router.post('/', (req, res)=>{
   
 
-    connection.query('INSERT INTO restaraunt.orders SET ?', req.body, (err, result, fields)=>{
+    connection.query('INSERT INTO Restaurant.orders SET ?', req.body, (err, result, fields)=>{
         if (err) throw err;
         res.send(result)
       })
