@@ -8,16 +8,20 @@ module.exports = {
     list(req, res) {
         return Restaurant
             .findAll()
-            .then(todos => res.status(200).send(todos))
+            .then(restaurants => res.status(200).send(restaurants))
             .catch(error => res.status(400).send(error));
     },
 
     create(req, res) {
         return Restaurant
             .create({
-                title: req.body.title,
+                name: req.body.name,
+                address: req.body.address,
+                rating: req.body.rating,
+                phone: req.body.phone,
+                info: req.body.info
             })
-            .then(todo => res.status(201).send(todo))
+            .then(restaurant => res.status(201).send(restaurant))
             .catch(error => res.status(400).send(error));
     },
 };
