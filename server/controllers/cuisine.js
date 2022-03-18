@@ -12,7 +12,7 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
 
-    create(req, res) {
+    add(req, res) {
         return Cuisine
             .create({
                 name: req.body.name

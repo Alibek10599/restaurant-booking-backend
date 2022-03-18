@@ -6,7 +6,23 @@ const Op = models.Sequelize.Op;
 
 module.exports = {
 
-    signin(req, res) {
+    async update(req, res) {
+        let user;
+        await User.findOne({
+            where: {
+                id: req.body.id
+            }
+        }).then(_user => user = _user);
+
+        user.set({
+            username: req.body.username,
+            password: req.body.password
+        });
+        user.save();
+        res.status(200).send();
+    },
+
+    search(req, res) {
         return User.findAll({
             where: {
                 username: req.body.username,
@@ -15,14 +31,7 @@ module.exports = {
             .then(users => (users.length == 0 ? res.status(400).send() : res.status(200).send(users)));
     },
 
-    list(req, res) {
-        return User
-            .findAll()
-            .then(users => res.status(200).send(users))
-            .catch(error => res.status(400).send(error));
-    },
-
-    create(req, res) {
+    add(req, res) {
         return User
             .create({
                 username: req.body.username,

@@ -1,9 +1,11 @@
-const todos = require('./todos');
 const restaurant = require('./restaurant');
 const user = require('./user');
+const reservation = require('./reservation');
+const cuisine = require('./cuisine');
 
 module.exports = {
-  todos,
   restaurant,
-  user
+  user,
+  reservation,
+  cuisine
 };
