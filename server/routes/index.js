@@ -14,6 +14,7 @@ module.exports = (app) => {
   app.get('/api/restaurant', restaurantController.list);
   app.post('/api/user', userController.create);
   app.get('/api/user', userController.list);
+  app.get('/api/user/signin', userController.signin);
 
 
 };
