@@ -13,6 +13,7 @@ module.exports = {
     },
 
     add(req, res) {
+        console.log(Restaurant)
         return Restaurant
             .create({
                 name: req.body.name,
