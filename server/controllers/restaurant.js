@@ -5,14 +5,14 @@ const Restaurant = require('../models/restaurant.js')(models.sequelize, DataType
 const Op = models.Sequelize.Op;
 
 module.exports = {
-    list(req, res) {
+    search(req, res) {
         return Restaurant
             .findAll()
             .then(restaurants => res.status(200).send(restaurants))
             .catch(error => res.status(400).send(error));
     },
 
-    create(req, res) {
+    add(req, res) {
         return Restaurant
             .create({
                 name: req.body.name,

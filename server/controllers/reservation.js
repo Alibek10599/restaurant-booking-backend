@@ -5,14 +5,27 @@ const Reservation = require('../models/reservation.js')(models.sequelize, DataTy
 const Op = models.Sequelize.Op;
 
 module.exports = {
-    list(req, res) {
+
+    delete(req, res) {
+        let reservation;
+        Reservation.findOne({
+            where: {
+                id: req.body.id
+            }
+        }).then(_reservation => reservation = _reservation);
+
+        reservation.destroy();
+        res.status(200).send();
+    },
+
+    search(req, res) {
         return Reservation
             .findAll()
             .then(reservations => res.status(200).send(reservations))
             .catch(error => res.status(400).send(error));
     },
 
-    create(req, res) {
+    add(req, res) {
         return Reservation
             .create({
                 date: req.body.date,
