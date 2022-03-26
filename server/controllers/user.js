@@ -23,7 +23,9 @@ module.exports = {
     },
 
     list(req, res) {
-        return User.findAll()
+        return User.findAll({
+            attributes: {exclude: ['password']},
+            order: [['id','ASC']]})
             .then(users => res.status(200).send(users));
     },
 

@@ -10,11 +10,17 @@ module.exports = (app) => {
 
   app.post('/api/restaurant/add', restaurantController.add);
   app.get('/api/restaurant/search', restaurantController.search);
+  app.get('/api/restaurant/delete/:id', restaurantController.delete);
+
+
   app.post('/api/user/add', userController.add);
   app.get('/api/user/list', userController.list);
   app.post('/api/user/update', userController.update);
+
+
   app.post('/api/reservation/add', reservationController.add);
   app.post('/api/reservation/cancel', reservationController.delete);
+  
   app.get('/api/cuisine', cuisineController.list);
 
 };

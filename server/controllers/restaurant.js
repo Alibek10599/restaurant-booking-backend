@@ -25,4 +25,21 @@ module.exports = {
             .then(restaurant => res.status(201).send(restaurant))
             .catch(error => res.status(400).send(error));
     },
+
+    delete (req, res) {
+        return Restaurant
+            .findById(req.params.id)
+            .then(restaurant => {
+                if (!restaurant) {
+                    return res.status(404).send({
+                        message: 'Restaurant Not Found',
+                    });
+                }
+                return restaurant
+                    .destroy()
+                    .then(() => res.status(204).send())
+                    .catch(error => res.status(400).send(error));
+            })
+            .catch(error => res.status(400).send(error));
+    }
 };

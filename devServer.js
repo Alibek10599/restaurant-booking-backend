@@ -2,10 +2,20 @@ const app = require("./app");
 const port = process.env.PORT || 3000;
 const db = require("./database-check");
 
+// swagger ui connection 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+
 const routes = require("./routes/router");
-// const api = require("./server/routes");
+
+// swagger routes
+app.use('/api-docs', swaggerUi.serve, 
+   swaggerUi.setup(swaggerDocument)
+ );
+
 app.use("/", routes);
-// app.use("/sql", api);
+
 app.get("/", async function (req, res) {
    res.send(`Reached home!`);
 });
