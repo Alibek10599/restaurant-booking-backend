@@ -1,7 +1,7 @@
 
 const models = require('../models/index.js');
 const {Sequelize, DataTypes} = require("sequelize");
-const Restaurant = require('../models/restaurant.js')(models.sequelize, DataTypes);
+const Restaurant = require('../models/db/restaurant.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 module.exports = {

@@ -29,13 +29,13 @@ if (config.use_env_variable) {
 }
 
 fs
-  .readdirSync(__dirname)
+  .readdirSync(__dirname + '/db')
   .filter(file =>
     (file.indexOf('.') !== 0) &&
     (file !== basename) &&
     (file.slice(-3) === '.js'))
   .forEach(file => {
-    const model = sequelize.define(path.join(__dirname, file));
+    const model = sequelize.define(path.join(__dirname + '/db', file));
     db[model.name] = model;
   });
 

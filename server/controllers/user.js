@@ -1,7 +1,7 @@
 
 const models = require('../models/index.js');
 const {Sequelize, DataTypes} = require("sequelize");
-const User = require('../models/user.js')(models.sequelize, DataTypes);
+const User = require('../models/db/user.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 module.exports = {

@@ -1,7 +1,7 @@
 
 const models = require('../models/index.js');
 const {Sequelize, DataTypes} = require("sequelize");
-const Reservation = require('../models/reservation.js')(models.sequelize, DataTypes);
+const Reservation = require('../models/db/reservation.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 module.exports = {
