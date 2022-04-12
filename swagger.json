@@ -25,21 +25,13 @@
       "description": "API for reservations in the system"
     }
   ],
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/addUser": {
       "post": {
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "description": "Create new user in system",
         "parameters": [
           {
@@ -51,9 +43,7 @@
             }
           }
         ],
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "New user is created",
@@ -62,23 +52,21 @@
             }
           }
         }
-      } 
+      }
     },
     "/user/list": {
       "get": {
-          "tags": [
-            "Users"
-          ],
-          "summary": "Get all users in system",
-          "responses": {
-            "200": {
-              "description": "OK",
-              "schema": {
-                "$ref": "#/definitions/Users"
-              }
+        "tags": ["Users"],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Users"
             }
           }
         }
+      }
     },
     "/user/{id}": {
       "parameters": [
@@ -92,9 +80,7 @@
       ],
       "delete": {
         "summary": "Delete user with given ID",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "responses": {
           "200": {
             "description": "User is deleted",
@@ -106,9 +92,7 @@
       },
       "put": {
         "summary": "Update user with give ID",
-        "tags": [
-          "Users"
-        ],
+        "tags": ["Users"],
         "parameters": [
           {
             "name": "user",
@@ -129,11 +113,9 @@
         }
       }
     },
-    "/restaurant/add":{
+    "/restaurant/add": {
       "post": {
-        "tags": [
-          "Restaraunts"
-        ],
+        "tags": ["Restaraunts"],
         "summary": "Create new restaraunt in system",
         "parameters": [
           {
@@ -158,11 +140,7 @@
   },
   "definitions": {
     "User": {
-      "required": [
-        "name",
-        "_id",
-        "companies"
-      ],
+      "required": ["name", "_id", "companies"],
       "properties": {
         "_id": {
           "type": "integer",
@@ -177,33 +155,27 @@
         "books": {
           "type": "array",
           "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "amount": {
-                  "type": "number"
-                }
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
               }
+            }
           }
-              
         },
         "companies": {
           "type": "array",
           "items": {
-              "type": "string"      
+            "type": "string"
           }
-              
         }
-       
       }
     },
     "updateUser": {
-      "required": [
-        "name",
-        "companies"
-      ],
+      "required": ["name", "companies"],
       "properties": {
         "isPublic": {
           "type": "boolean"
@@ -214,32 +186,86 @@
         "books": {
           "type": "array",
           "items": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "amount": {
-                  "type": "number"
-                }
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "amount": {
+                "type": "number"
               }
+            }
           }
-              
         },
         "companies": {
           "type": "array",
           "items": {
-              "type": "string"      
+            "type": "string"
           }
-              
         }
-       
       }
     },
     "Users": {
       "type": "array",
       "$ref": "#/definitions/User"
+    },
+    "Restaraunt": {
+      "required": [
+        "name",
+        "address",
+        "phone",
+        "openingHours",
+        "menu",
+        "reservations"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "openingHours": {
+          "type": "string"
+        },
+        "menu": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        "reservations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "date": {
+                "type": "string"
+              },
+              "time": {
+                "type": "string"
+              },
+              "people": {
+                "type": "number"
+              }
+            }
+          }
+        }
+      }
     }
-   
   }
 }
