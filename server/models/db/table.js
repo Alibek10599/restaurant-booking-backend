@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Table.init({
+    restaraunt_id: DataTypes.INTEGER,
     coord_x: DataTypes.STRING,
     coord_y: DataTypes.STRING,
     height: DataTypes.INTEGER,
@@ -23,6 +24,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Table',
+    timestamps: false,
+    createdAt: false,
+    updatedAt: false
   });
   return Table;
 };
