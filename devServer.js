@@ -8,14 +8,11 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 
-const routes = require("./routes/router");
-
 // // swagger routes
 // app.use('/api-docs', swaggerUi.serve, 
 //    swaggerUi.setup(swaggerDocument)
 //  );
 
-app.use("/", routes);
 
 app.get("/", async function (req, res) {
    res.send(`Reached home!`);
