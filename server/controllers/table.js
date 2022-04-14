@@ -1,36 +1,35 @@
 
 const models = require('../models/index.js');
 const {Sequelize, DataTypes} = require("sequelize");
-const Reservation = require('../models/db/reservation.js')(models.sequelize, DataTypes);
+const Table = require('../models/db/table.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 module.exports = {
-
     list(req, res) {
-        return Reservation
+        return Table
             .findAll()
-            .then(reservations => res.status(200).send(reservations))
+            .then(tables => res.status(200).send(tables))
             .catch(error => res.status(400).send(error));
     },
 
     add(req, res) {
-        return Reservation
+        return Table
             .create(req.body)
-            .then(reservation => res.status(201).send(reservation))
+            .then(table => res.status(201).send(table))
             .catch(error => res.status(400).send(error));
     },
 
     delete (req, res) {
-        return Reservation
+        return Table
             .findOne({
                 where: req.body
-            }).then(reservation => {
-                if (!reservation) {
+            }).then(table => {
+                if (!table) {
                     return res.status(404).send({
-                        message: 'Reservation Not Found',
+                        message: 'Table Not Found',
                     });
                 }
-                return reservation
+                return table
                     .destroy()
                     .then(() => res.status(204).send())
                     .catch(error => res.status(400).send(error));
@@ -39,20 +38,20 @@ module.exports = {
     },
 
     find(req, res) {
-        return Reservation.findOne({
+        return Table.findOne({
             where: req.body
-        }).then(_reservation => res.send(_reservation));
+        }).then(_table => res.send(_table));
     },
 
     async update(req, res) {
-        let reservation;
-        await Reservation.findOne({
+        let table;
+        await Table.findOne({
             where: {
                 id: req.body.id
             }
-        }).then(_reservation => reservation = _reservation);
+        }).then(_table => table = _table);
 
-        reservation.set(req.body.change);
-        reservation.save().then(res.status(200).send());
+        table.set(req.body.change);
+        table.save().then(res.status(200).send());
     }
 };
