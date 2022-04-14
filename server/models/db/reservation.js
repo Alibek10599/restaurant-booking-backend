@@ -20,6 +20,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'RestaurantId',
         onDelete: 'CASCADE',
       });
+      Reservation.belongsTo(models.Table, {
+        foreignKey: 'table_id',
+        onDelete: 'CASCADE',
+      });
     }
   }
   Reservation.init({

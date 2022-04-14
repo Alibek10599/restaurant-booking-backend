@@ -30,17 +30,12 @@ module.exports = {
             //Encrypt user password
             const encryptedPassword = await bcrypt.hash(password, 10);
 
-            // Create user in our database
-            let user;
-            await User.create({
-                username,
-                password: encryptedPassword,
-            }).then(_user => user = _user);
+           
 
             // Create token
             const token = jwt.sign(
                 {
-                    user_id: user.id
+                    user_id: username
                 },
                 process.env.TOKEN_KEY,
                 {
@@ -48,10 +43,14 @@ module.exports = {
                 }
             );
             // save user token
-            await user.update({
-                token: token
-            });
-
+             // Create user in our database
+             let user;
+             await User.create({
+                 username,
+                 password: encryptedPassword,
+                 token: token
+             }).then(_user => user = _user);
+            
             // return new user
             return res.status(201).json(user);
         } catch (err) {

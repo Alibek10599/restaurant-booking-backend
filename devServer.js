@@ -1,5 +1,6 @@
 const app = require("./app");
 const port = process.env.PORT || 3000;
+
 const db = require("./database-check");
 
 // swagger ui connection 
@@ -9,10 +10,10 @@ const swaggerDocument = require('./swagger.json');
 
 const routes = require("./routes/router");
 
-// swagger routes
-app.use('/api-docs', swaggerUi.serve, 
-   swaggerUi.setup(swaggerDocument)
- );
+// // swagger routes
+// app.use('/api-docs', swaggerUi.serve, 
+//    swaggerUi.setup(swaggerDocument)
+//  );
 
 app.use("/", routes);
 
