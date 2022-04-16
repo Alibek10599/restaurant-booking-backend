@@ -7,6 +7,5 @@ const cookieParser = require("cookie-parser");
  app.use(logger("dev"));
  app.use(cors());
  app.use(body_parser.json())
-
  
  module.exports = app;
