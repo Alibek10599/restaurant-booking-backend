@@ -13,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Table.belongsTo(models.Restaurant, {
         foreignKey: 'restaurant_id',
-        onDelete: 'CASCADE'
+        onDelete: 'LAZY'
       });
       Table.hasMany(models.Reservation, {
         foreignKey: 'table_id',
-        onDelete: 'CASCADE'
+        onDelete: 'LAZY'
       });
     }
   }
