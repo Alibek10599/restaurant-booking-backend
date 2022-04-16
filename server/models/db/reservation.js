@@ -13,16 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Reservation.belongsTo(models.User, {
         foreignKey: 'userId',
-        onDelete: 'CASCADE',
+        onDelete: 'LAZY',
       });
 
       Reservation.belongsTo(models.Restaurant, {
         foreignKey: 'RestaurantId',
-        onDelete: 'CASCADE',
+        onDelete: 'LAZY',
       });
       Reservation.belongsTo(models.Table, {
         foreignKey: 'table_id',
-        onDelete: 'CASCADE',
+        onDelete: 'LAZY',
       });
     }
   }
