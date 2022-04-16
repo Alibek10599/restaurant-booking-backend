@@ -22,6 +22,7 @@ module.exports = (app) => {
   app.post('/api/restaurant/delete', restaurantController.delete);
   app.post('/api/restaurant/update', restaurantController.update);
   app.post('/api/restaurant/find', restaurantController.find);
+  app.post('/api/restaurant/findExtended', restaurantController.findExtended);
   app.get('/api/restaurant/list', restaurantController.list);
 
 
