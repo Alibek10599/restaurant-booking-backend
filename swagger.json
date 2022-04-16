@@ -210,14 +210,7 @@
       "$ref": "#/definitions/User"
     },
     "Restaraunt": {
-      "required": [
-        "name",
-        "address",
-        "phone",
-        "openingHours",
-        "menu",
-        "reservations"
-      ],
+      "required": ["name", "address", "phone", "menu", "reservations"],
       "properties": {
         "name": {
           "type": "string"
@@ -226,9 +219,6 @@
           "type": "string"
         },
         "phone": {
-          "type": "string"
-        },
-        "openingHours": {
           "type": "string"
         },
         "menu": {

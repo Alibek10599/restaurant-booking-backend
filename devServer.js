@@ -8,10 +8,10 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
 
-// // swagger routes
-// app.use('/api-docs', swaggerUi.serve, 
-//    swaggerUi.setup(swaggerDocument)
-//  );
+// swagger routes
+app.use('/api-docs', swaggerUi.serve, 
+   swaggerUi.setup(swaggerDocument)
+ );
 
 
 app.get("/", async function (req, res) {
