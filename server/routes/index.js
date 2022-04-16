@@ -24,6 +24,7 @@ module.exports = (app) => {
   app.post('/api/restaurant/find', restaurantController.find);
   app.post('/api/restaurant/findExtended', restaurantController.findExtended);
   app.get('/api/restaurant/list', restaurantController.list);
+  app.get('/api/restaurant/listExtended', restaurantController.listExtended);
 
 
   app.post('/api/reservation/add', auth, reservationController.add);
