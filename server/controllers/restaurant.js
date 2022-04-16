@@ -2,14 +2,34 @@
 const models = require('../models/index.js');
 const {Sequelize, DataTypes} = require("sequelize");
 const Restaurant = require('../models/db/restaurant.js')(models.sequelize, DataTypes);
+const Table = require('../models/db/table.js')(models.sequelize, DataTypes);
+const Reservation = require('../models/db/reservation.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 module.exports = {
-    list(req, res) {
-        return Restaurant
+    async list(req, res) {
+
+        let restaurants;
+        await Restaurant
             .findAll()
-            .then(restaurants => res.status(200).send(restaurants))
+            .then(_restaurants => restaurants = _restaurants)
             .catch(error => res.status(400).send(error));
+
+        let responseList = [];
+        for (const restaurant of restaurants) {
+           let response = restaurant.get();
+            await Table.findAll({where: {
+                    restaraunt_id : restaurant.id
+                }}).then(tables => response.allTables = tables.length);
+            let date = new Date();
+            await Reservation.findAll({where: {
+                    restaurantId: restaurant.id,
+                    date: date.toISOString().substring(0, 10)
+                }}).then(reservations => response.freeTables = response.allTables - reservations.length)
+            responseList.push(response);
+        }
+
+        return res.status(200).send(responseList);
     },
 
     add(req, res) {
@@ -37,10 +57,23 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
 
-    find(req, res) {
-        return Restaurant.findOne({
+    async find(req, res) {
+        let restaurant;
+        await Restaurant.findOne({
             where: req.body
-        }).then(_restaurant => res.send(_restaurant));
+        }).then(_restaurant => restaurant = _restaurant);
+
+        response = restaurant.get();
+
+        await Table.findAll({where: {
+            restaraunt_id : restaurant.id
+            }}).then(tables => response.allTables = tables.length);
+        let date = new Date();
+        await Reservation.findAll({where: {
+                restaurantId: restaurant.id,
+                date: date.toISOString().substring(0, 10)
+            }}).then(reservations => response.freeTables = response.allTables - reservations.length)
+        return res.status(200).send(response);
     },
 
     async update(req, res) {
