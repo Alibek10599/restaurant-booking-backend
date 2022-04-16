@@ -39,7 +39,6 @@ module.exports = {
                 },
                 process.env.TOKEN_KEY,
                 {
-                    expiresIn: "2h",
                 }
             );
             // save user token
