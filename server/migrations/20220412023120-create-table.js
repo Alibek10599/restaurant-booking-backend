@@ -16,7 +16,7 @@ module.exports = {
           key: 'id',
           as: 'restaraunt_id'
         },
-        onDelete: 'CASCADE'
+        onDelete: 'SET NULL'
       },
       coord_x: {
         type: Sequelize.STRING
