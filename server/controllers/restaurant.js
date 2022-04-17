@@ -208,9 +208,9 @@ module.exports = {
                             date: date.toISOString().substring(0, 10)
                         }
                     }).then(_user => user = _user);
-                    if (reservation.status == "pending")
+                    if (reservation.status === "pending")
                         table.status = "pending";
-                    else if (reservation.status == "active") {
+                    else if (reservation.status === "active") {
                         if (reservation.userId == user.id)
                             table.status = "yours";
                         else
@@ -218,6 +218,8 @@ module.exports = {
                     } else
                         table.status = "free";
                 }
+                else
+                        table.status = "free";
 
             });
         }
