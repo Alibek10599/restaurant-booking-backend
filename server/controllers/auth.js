@@ -79,10 +79,9 @@ module.exports = {
             if (user && (await bcrypt.compare(password, user.password))) {
                 // Create token
                 const token = jwt.sign(
-                    { user_id: user.id },
+                    { user_id: user.username },
                     process.env.TOKEN_KEY,
                     {
-                        expiresIn: "2h",
                     }
                 );
 
