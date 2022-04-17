@@ -8,20 +8,20 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addColumn('Users', 'username', {
-      type: Sequelize.STRING,
-      allowNull: false,
-    });
+    // await queryInterface.addColumn('Users', 'username', {
+    //   type: Sequelize.STRING,
+    //   allowNull: false,
+    // });
 
-    await queryInterface.addColumn('Users', 'password', {
-      type: Sequelize.STRING,
-      allowNull: false,
-    });
+    // await queryInterface.addColumn('Users', 'password', {
+    //   type: Sequelize.STRING,
+    //   allowNull: false,
+    // });
 
-    await queryInterface.addColumn('Users', 'token', {
-      type: Sequelize.STRING,
-      allowNull: false,
-    });
+    // await queryInterface.addColumn('Users', 'token', {
+    //   type: Sequelize.STRING,
+    //   allowNull: false,
+    // });
   },
 
   async down (queryInterface, Sequelize) {
@@ -32,8 +32,8 @@ module.exports = {
      * await queryInterface.dropTable('users');
      */
 
-    await queryInterface.removeColumn('Users', 'username');
-    await queryInterface.removeColumn('Users', 'password');
-    await queryInterface.removeColumn('Users', 'token');
+    // await queryInterface.removeColumn('Users', 'username');
+    // await queryInterface.removeColumn('Users', 'password');
+    // await queryInterface.removeColumn('Users', 'token');
   }
 };
