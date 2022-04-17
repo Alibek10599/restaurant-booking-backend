@@ -20,70 +20,87 @@ async function getImages(imageDir) {
     return files;
 }
 
-async function find (restaurant) {
-    let response = restaurant.get();
+module.exports = {
+    async list(req, res) {
 
-    await Table.findAll({where: {
-            restaraunt_id : restaurant.id
-        }}).then(tables => response.allTables = tables.length);
+        let restaurants;
+        await Restaurant
+            .findAll()
+            .then(_restaurants => restaurants = _restaurants)
+            .catch(error => res.status(400).send(error));
 
-    let date = new Date();
-    await Reservation.findAll({where: {
-            restaurantId: restaurant.id,
-            date: date.toISOString().substring(0, 10)
-        }}).then(reservations => response.freeTables = response.allTables - reservations.length)
+        let responseList = [];
+        for (const restaurant of restaurants) {
+           let response = restaurant.get();
+            await Table.findAll({where: {
+                    restaraunt_id : restaurant.id
+                }}).then(tables => response.allTables = tables.length);
+            let date = new Date();
+            await Reservation.findAll({where: {
+                    restaurantId: restaurant.id,
+                    date: date.toISOString().substring(0, 10)
+                }}).then(reservations => response.freeTables = response.allTables - reservations.length)
 
-    let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
-    response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
+            let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
+            response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
 
-    return response;
-
-}
-
-async function findExtended(restaurant, req) {
-    let response = restaurant.get();
-    await Table.findAll({
-        where: {
-            restaraunt_id: restaurant.id
+            responseList.push(response);
         }
-    }).then(tables => {
-        response.allTables = tables.length;
-        response.tables = [];
-        for (const table of tables) {
-            response.tables.push(table.get());
-        }
-    });
 
-    let date = new Date();
-    for (const table of response.tables) {
-        await Reservation.findOne({
-            where: {
-                restaurantId: restaurant.id,
-                table_id: table.id,
-                date: date.toISOString().substring(0, 10)
-            }
-        }).then(async reservation => {
-            if (reservation != null) {
-                const token =
-                    req.body.token || req.query.token || req.headers["x-access-token"];
-                const _user = jwt.verify(token, process.env.TOKEN_KEY);
-                let user;
-                await User.findOne({
-                    where: {
-                        username: _user.user_id
+        return res.status(200).send(responseList);
+    },
+
+    async listExtended(req, res) {
+
+        let restaurants;
+        await Restaurant
+            .findAll()
+            .then(_restaurants => restaurants = _restaurants)
+            .catch(error => res.status(400).send(error));
+
+        let responseList = [];
+        for (const restaurant of restaurants) {
+            let response = restaurant.get();
+            await Table.findAll({where: {
+                    restaraunt_id : restaurant.id
+                }}).then(tables => {
+                response.allTables = tables.length;
+                response.tables = [];
+                for (const table of tables) {
+                    response.tables.push(table.get());
+                }
+            });
+
+            let date = new Date();
+            for (const table of response.tables) {
+                await Reservation.findOne({where: {
+                        restaurantId: restaurant.id,
+                        table_id: table.id,
+                        date: date.toISOString().substring(0, 10)
+                    }}).then(async reservation => {
+
+                    if (reservation != null && reservation.length > 0) {
+                        const token =
+                            req.body.token || req.query.token || req.headers["x-access-token"];
+                        const username = jwt.verify(token, process.env.TOKEN_KEY);
+                        let user;
+                        await User.findOne({
+                            where: {
+                                restaurantId: restaurant.id,
+                                table_id: table.id,
+                                date: date.toISOString().substring(0, 10)
+                            }
+                        }).then(_user => user = _user);
+                        if (reservation.status == "pending")
+                            table.status = "pending";
+                        else if (reservation.status == "active") {
+                            if (reservation.userId == user.id)
+                                table.status = "yours";
+                            else
+                                table.status = "occupied";
+                        } else
+                            table.status = "free";
                     }
-                }).then(_user => user = _user);
-                if (reservation.status == "pending")
-                    table.status = "pending";
-                else if (reservation.status == "active") {
-                    if (reservation.userId == user.id)
-                        table.status = "yours";
-                    else
-                        table.status = "occupied";
-                } else
-                    table.status = "free";
-            } else
-                table.status = "free";
 
         });
     }

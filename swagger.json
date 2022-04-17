@@ -123,7 +123,7 @@
             "in": "body",
             "description": "Restaraunt that we want to create",
             "schema": {
-              "$ref": "#/definitions/Restaraunt"
+              "$ref": "#/definitions/Restaraunt_Post"
             }
           }
         ],
@@ -209,8 +209,8 @@
       "type": "array",
       "$ref": "#/definitions/User"
     },
-    "Restaraunt": {
-      "required": ["name", "address", "phone", "menu", "reservations"],
+    "Restaraunt_Post": {
+      "required": ["name", "address", "phone", "rating"],
       "properties": {
         "name": {
           "type": "string"
@@ -221,39 +221,8 @@
         "phone": {
           "type": "string"
         },
-        "menu": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "price": {
-                "type": "number"
-              }
-            }
-          }
-        },
-        "reservations": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "date": {
-                "type": "string"
-              },
-              "time": {
-                "type": "string"
-              },
-              "people": {
-                "type": "number"
-              }
-            }
-          }
+        "rating": {
+          "type": "number"
         }
       }
     }

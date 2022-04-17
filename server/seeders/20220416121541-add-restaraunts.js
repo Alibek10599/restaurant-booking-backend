@@ -17,7 +17,6 @@ module.exports = {
       rating: 4,
       phone: '123-456-7890',
       info: 'This is a good restaurant',
-      cuisine: 'American',
   },
   {
       name: 'Pizza Hut',
@@ -25,7 +24,6 @@ module.exports = {
       rating: 5,
       phone: '123-456-324890',
       info: 'This is a good restaurant',
-      cuisine: 'Italian',
   },
   {
       name: 'Panda Express',
@@ -33,7 +31,6 @@ module.exports = {
       rating: 5,
       phone: '342-456-324890',
       info: 'That is a very good restaurant',
-      cuisine: 'Asian',
   },
 ], {});
 
