@@ -8,6 +8,18 @@ const Reservation = require('../models/db/reservation.js')(models.sequelize, Dat
 const User = require('../models/db/user.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
+const fs = require('fs');
+const path = require('path');
+
+async function getImages(imageDir) {
+    var fileType = '.jpg',
+        files = [], i;
+    // console.log(imageDir);
+    await fs.promises.readdir(imageDir).then((list) => files = list);
+    // console.log(files);
+    return files;
+}
+
 module.exports = {
     async list(req, res) {
 
@@ -28,6 +40,10 @@ module.exports = {
                     restaurantId: restaurant.id,
                     date: date.toISOString().substring(0, 10)
                 }}).then(reservations => response.freeTables = response.allTables - reservations.length)
+
+            let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
+            response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
+
             responseList.push(response);
         }
 
@@ -93,6 +109,11 @@ module.exports = {
                     restaurantId: restaurant.id,
                     date: date.toISOString().substring(0, 10)
                 }}).then(reservations => response.freeTables = response.allTables - reservations.length)
+
+            //Add pictures
+            response.pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
+            response.pictures = response.pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))
+
             responseList.push(response);
         }
 
@@ -140,6 +161,10 @@ module.exports = {
                 restaurantId: restaurant.id,
                 date: date.toISOString().substring(0, 10)
             }}).then(reservations => response.freeTables = response.allTables - reservations.length)
+
+        let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
+        response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
+
         return res.status(200).send(response);
     },
 
@@ -201,6 +226,10 @@ module.exports = {
                 restaurantId: restaurant.id,
                 date: date.toISOString().substring(0, 10)
             }}).then(reservations => response.freeTables = response.allTables - reservations.length)
+
+        //Add pictures
+        response.pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
+        response.pictures = response.pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))
 
         return res.status(200).send(response);
     },
