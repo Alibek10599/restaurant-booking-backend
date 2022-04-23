@@ -22,9 +22,9 @@ module.exports = (app) => {
   app.post('/api/restaurant/delete', restaurantController.delete);
   app.post('/api/restaurant/update', restaurantController.update);
   app.post('/api/restaurant/find', restaurantController.find);
-  app.post('/api/restaurant/findExtended', restaurantController.findExtended);
+  app.post('/api/restaurant/findExtended', auth, restaurantController.findExtended);
   app.get('/api/restaurant/list', restaurantController.list);
-  app.get('/api/restaurant/listExtended', restaurantController.listExtended);
+  app.get('/api/restaurant/listExtended', auth, restaurantController.listExtended);
 
 
   app.post('/api/reservation/add', auth, reservationController.add);
