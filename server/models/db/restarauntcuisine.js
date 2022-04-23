@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'RestarauntCuisine',
+      timestamps: false,
+      createdAt: false,
+      updatedAt: false
   });
   return RestarauntCuisine;
 };

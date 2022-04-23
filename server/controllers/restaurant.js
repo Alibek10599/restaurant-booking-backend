@@ -6,6 +6,8 @@ const Restaurant = require('../models/db/restaurant.js')(models.sequelize, DataT
 const Table = require('../models/db/table.js')(models.sequelize, DataTypes);
 const Reservation = require('../models/db/reservation.js')(models.sequelize, DataTypes);
 const User = require('../models/db/user.js')(models.sequelize, DataTypes);
+const RestarauntCuisines = require('../models/db/restarauntcuisine')(models.sequelize, DataTypes);
+const Cuisine = require('../models/db/cuisine')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 const fs = require('fs');
@@ -35,20 +37,21 @@ async function find (restaurant) {
 
     let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
     response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
-    const cuisines = [];
-    let restarauntCuisines = await RestarauntCuisines.findAll({
+    let cuisines = [];
+    let restarauntCuisines = [];
+    await RestarauntCuisines.findAll({
         where: {
-            restarauntId: restaurant.id
+            restaurant_id: restaurant.id
         }
-    });
+    }).then(cuisines => restarauntCuisines = cuisines);
+    response.cuisines = []
     for (const cuisine of restarauntCuisines) {
-        await Cuisine.findAll({
+        await Cuisine.findOne({
             where: {
-                id: cuisine.cuisineId
+                id: cuisine.cuisine_id
             }
         }).then(cuisine => response.cuisines.push(cuisine.get()));
     }
-    response.cuisine = cuisines;
     return response;
 
 }
