@@ -37,7 +37,7 @@ async function find (restaurant) {
 
     let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
     response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
-    let cuisines = [];
+
     let restarauntCuisines = [];
     await RestarauntCuisines.findAll({
         where: {
@@ -69,6 +69,22 @@ async function findExtended(restaurant, req) {
             response.tables.push(table.get());
         }
     });
+
+
+    let restarauntCuisines = [];
+    await RestarauntCuisines.findAll({
+        where: {
+            restaurant_id: restaurant.id
+        }
+    }).then(cuisines => restarauntCuisines = cuisines);
+    response.cuisines = []
+    for (const cuisine of restarauntCuisines) {
+        await Cuisine.findOne({
+            where: {
+                id: cuisine.cuisine_id
+            }
+        }).then(cuisine => response.cuisines.push(cuisine.get()));
+    }
 
     let date = new Date();
     for (const table of response.tables) {
