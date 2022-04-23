@@ -35,7 +35,20 @@ async function find (restaurant) {
 
     let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
     response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
-
+    const cuisines = [];
+    let restarauntCuisines = await RestarauntCuisines.findAll({
+        where: {
+            restarauntId: restaurant.id
+        }
+    });
+    for (const cuisine of restarauntCuisines) {
+        await Cuisine.findAll({
+            where: {
+                id: cuisine.cuisineId
+            }
+        }).then(cuisine => response.cuisines.push(cuisine.get()));
+    }
+    response.cuisine = cuisines;
     return response;
 
 }
@@ -97,7 +110,7 @@ async function findExtended(restaurant, req) {
     //Add pictures
     response.pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
     response.pictures = response.pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))
-
+  
     return response;
 }
 
@@ -134,7 +147,16 @@ module.exports = {
         return res.status(200).send(responseList);
     },
 
-    add(req, res) {
+    async add(req, res) {
+        if (req.body.cuisine){
+             await RestaurantCuisine.create(
+                {
+                    restaurantId: restaraunt.id,
+                    cuisineId: req.body.cuisine
+                }
+            ).catch(error => res.status(400).send(error));
+        }
+
         return Restaurant
             .create(req.body)
             .then(restaurant => res.status(201).send(restaurant))
