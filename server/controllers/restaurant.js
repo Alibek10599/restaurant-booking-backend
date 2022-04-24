@@ -17,9 +17,23 @@ async function getImages(imageDir) {
     var fileType = '.jpg',
         files = [], i;
     // console.log(imageDir);
+    if (!fs.existsSync(imageDir))
+        return [];
     await fs.promises.readdir(imageDir).then((list) => files = list);
     // console.log(files);
     return files;
+}
+
+async function getRestaurantPictures(id) {
+    let pictures;
+    pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + id));
+    pictures = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + id, val))
+    let result = [];
+    for (let picture of pictures) {
+        result.push(new Buffer(fs.readFileSync(picture)).toString("base64"));
+    }
+
+    return result;
 }
 
 async function find (restaurant) {
@@ -35,8 +49,7 @@ async function find (restaurant) {
             date: date.toISOString().substring(0, 10)
         }}).then(reservations => response.freeTables = response.allTables - reservations.length)
 
-    let pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
-    response.img = pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))[0];
+    response.img = await getRestaurantPictures(restaurant.id)[0];
 
     let restarauntCuisines = [];
     await RestarauntCuisines.findAll({
@@ -127,14 +140,14 @@ async function findExtended(restaurant, req) {
     }).then(reservations => response.freeTables = response.allTables - reservations.length)
 
     //Add pictures
-    response.pictures = await getImages(path.join(__dirname, "..", "images/restaurants/" + restaurant.id));
-    response.pictures = response.pictures.map((val) => path.join(__dirname, "..", "images/restaurants/" + restaurant.id, val))
+    response.pictures = await getRestaurantPictures(restaurant.id);
   
     return response;
 }
 
 module.exports = {
     async list(req, res) {
+        // console.log(req.headers);
 
         let restaurants;
         await Restaurant

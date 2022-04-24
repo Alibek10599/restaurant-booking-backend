@@ -5,7 +5,7 @@ const config = process.env;
 const verifyToken = (req, res, next) => {
 
     const token =
-        req.body.token || req.query.token || req.headers["x-access-token"];
+        req.body.token || req.query.token || req.headers["x-access-token"] || req.headers["authorization"];
 
     // Check for token presence
     if (!token) {
