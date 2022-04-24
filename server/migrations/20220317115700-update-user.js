@@ -16,6 +16,18 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING
+      },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      token: {
+        type: Sequelize.STRING,
+        allowNull: false,
       }
     });
   },

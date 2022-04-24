@@ -28,11 +28,20 @@ module.exports = {
       date: {
         type: Sequelize.STRING
       },
-      table: {
-        type: Sequelize.INTEGER
-      },
       status: {
         type: Sequelize.STRING
+      },
+      table_id: {
+        type: Sequelize.INTEGER,
+      onDelete: 'SET NULL',
+      references: {
+        model: 'Tables',
+        key: 'id',
+        as: 'TableId'
+      }},
+      extra_info: {
+        type: Sequelize.STRING,
+        allowNull: true,
       }
     });
   },
