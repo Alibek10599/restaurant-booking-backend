@@ -39,7 +39,7 @@ module.exports = {
     },
 
     find(req, res) {
-        return Reservation.findOne({
+        return Reservation.findAll({
             where: req.body
         }).then(_reservation => res.send(_reservation));
     },
