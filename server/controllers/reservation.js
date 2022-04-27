@@ -14,7 +14,7 @@ module.exports = {
             .catch(error => res.status(400).send(error));
     },
 
-    add(req, res) {
+    async add(req, res) {
         const table = await Table.findOne({
             where: {
                 id: req.body.table_id
