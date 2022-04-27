@@ -3,15 +3,30 @@ const models = require('../models/index.js');
 const {Sequelize, DataTypes} = require("sequelize");
 const table = require('./table.js');
 const Reservation = require('../models/db/reservation.js')(models.sequelize, DataTypes);
+const Restaurant = require('../models/db/restaurant.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
 module.exports = {
 
-    list(req, res) {
-        return Reservation
-            .findAll()
-            .then(reservations => res.status(200).send(reservations))
+    async list(req, res) {
+        let _reservations = [];
+        await Reservation.findAll()
+            .then(async reservations => {
+                for (const reservation of reservations) {
+                    _reservations.push(reservation.get());
+
+                    await Restaurant.findOne({
+                            where: {
+                                id: reservation.restaurantId
+                            }
+                        }).then(restaurant => {
+                            _reservations[_reservations.length - 1].restaurant_name = restaurant.name;
+                        })
+                        .catch(error => res.status(400).send(error));
+                }
+            })
             .catch(error => res.status(400).send(error));
+        res.status(200).send(_reservations);
     },
 
     async add(req, res) {
