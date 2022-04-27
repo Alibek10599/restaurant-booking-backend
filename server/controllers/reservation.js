@@ -1,6 +1,7 @@
 
 const models = require('../models/index.js');
 const {Sequelize, DataTypes} = require("sequelize");
+const table = require('./table.js');
 const Reservation = require('../models/db/reservation.js')(models.sequelize, DataTypes);
 const Op = models.Sequelize.Op;
 
@@ -14,6 +15,14 @@ module.exports = {
     },
 
     add(req, res) {
+        const table = await Table.findOne({
+            where: {
+                id: req.body.table_id
+            }
+        });
+        table.update({
+            status: 'occupying'
+        });
         return Reservation
             .create(req.body)
             .then(reservation => res.status(201).send(reservation))
