@@ -28,8 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     height: DataTypes.INTEGER,
     width: DataTypes.INTEGER,
     num_of_person: DataTypes.INTEGER,
-    floor: DataTypes.INTEGER,
-    status: DataTypes.ENUM('pending', 'occupying', 'cancelled', 'free'),
+    floor: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Table',
