@@ -108,6 +108,7 @@ async function findExtended(restaurant, req) {
                 date: date.toISOString().substring(0, 10)
             }
         }).then(async reservation => {
+            console.log('RESERVATION:   ' + reservation);
             if (reservation != null) {
                 const token =
                     req.body.token || req.query.token || req.headers["authorization"] || req.headers["x-access-token"];
