@@ -110,7 +110,7 @@ async function findExtended(restaurant, req) {
         }).then(async reservation => {
             if (reservation != null) {
                 const token =
-                    req.body.token || req.query.token || req.headers["x-access-token"];
+                    req.body.token || req.query.token || req.headers["authorization"] || req.headers["x-access-token"];
                 const _user = jwt.verify(token, process.env.TOKEN_KEY);
                 let user;
                 await User.findOne({

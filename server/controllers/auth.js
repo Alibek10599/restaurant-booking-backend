@@ -110,7 +110,7 @@ module.exports = {
 
         try {
             let token =
-                req.body.token || req.query.token || req.headers["x-access-token"];
+                req.body.token || req.query.token || req.headers["x-access-token"] || req.headers["authorization"];
 
             if (token == null)
                 return res.status(400).send("No token");
